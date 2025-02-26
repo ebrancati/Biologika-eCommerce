@@ -26,11 +26,11 @@ const DarkModeToggle: React.FC = () => {
             onClick={toggleDarkMode}
         >
             {isDarkMode ? (
-                <SunIcon className="h-5 w-5 mr-2" />
+                <SunIcon className="h-5 w-5" />
             ) : (
-                <MoonIcon className="h-5 w-5 mr-2" />
+                <MoonIcon className="h-5 w-5" />
             )}
-            {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+            <span className="ml-2 hidden sm:inline">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
         </button>
     );
 };

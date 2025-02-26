@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ cart, removeFromCart }) => {
 
     return (
         <nav className="bg-white shadow-md sticky top-0 z-50 dark:bg-black">
-            <div className="container mx-auto px-6 py-3">
+            <div className="container mx-auto px-0 sm:px-6 py-3">
                 <div className="flex justify-between items-center text-green-500">
                     <Link to="/" className="flex items-center text-xl font-semibold">
                         <img src={logo} alt="Logo Biologika" className="h-8 mr-2" />
@@ -79,7 +79,7 @@ const Header: React.FC<HeaderProps> = ({ cart, removeFromCart }) => {
                 id="mobileMenu"
                 className={`${isMobileMenuOpen ? 'block' : 'hidden'} lg:hidden bg-white shadow-md dark:bg-gray-900`}
             >
-                <div className="container mx-auto px-6 py-3 text-green-500">
+                <div className="container mx-auto px-0 py-3 text-green-500">
                     <div className="flex flex-col space-y-4">
                         <Link
                             to="/"
