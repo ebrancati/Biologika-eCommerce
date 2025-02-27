@@ -20,8 +20,8 @@ const ProductCard: React.FC<CardProps> = ({ title, description, weight, price, i
         <div className="card max-w-xs mx-auto bg-white shadow-lg rounded-lg overflow-hidden dark:bg-black">
             <img src={imageUrl} className="w-full h-56 object-cover" alt={title} />
             <div className="p-6">
-                <h5 className="text-xl font-semibold text-green-600">{title}</h5>
-                <p className="text-gray-600 mt-2 dark:text-white">{description}</p>
+                <h5 className="text-xl font-semibold text-green-600 h-15">{title}</h5>
+                <p className="text-gray-600 h-20 dark:text-white">{description}</p>
                 <div className="flex justify-between mt-4 text-xl font-bold">
                     <p className="text-lg">{weight}</p>
                     <p className="text-yellow-500">

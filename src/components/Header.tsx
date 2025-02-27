@@ -28,8 +28,8 @@ const Header: React.FC<HeaderProps> = ({ cart, removeFromCart }) => {
             <div className="container mx-auto px-0 sm:px-6 py-3">
                 <div className="flex justify-between items-center text-green-500">
                     <Link to="/" className="flex items-center text-xl font-semibold">
-                        <img src={logo} alt="Logo Biologika" className="h-8 mr-2" />
-                        Biologika
+                        <img src={logo} alt="Logo Biologika" className="h-8 mr-2 ml-5" />
+                        <span className="xxs:hidden sm:block">Biologika</span>
                     </Link>
                     <button
                         className="lg:hidden text-gray-500 hover:text-gray-700 cursor-pointer"
@@ -64,7 +64,7 @@ const Header: React.FC<HeaderProps> = ({ cart, removeFromCart }) => {
                     <div className="flex items-center">
                         <DarkModeToggle />
                         <button className="relative ml-4 cursor-pointer" onClick={toggleCart}>
-                            <ShoppingCartIcon className="h-6 w-6" />
+                            <ShoppingCartIcon className="h-6 w-6 mr-5" />
                             {cart.length > 0 && (
                                 <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full px-2 text-xs">
                                     {cart.length}
@@ -80,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ cart, removeFromCart }) => {
                 className={`${isMobileMenuOpen ? 'block' : 'hidden'} lg:hidden bg-white shadow-md dark:bg-gray-900`}
             >
                 <div className="container mx-auto px-0 py-3 text-green-500">
-                    <div className="flex flex-col space-y-4">
+                    <div className="flex flex-col space-y-4 ml-5">
                         <Link
                             to="/"
                             className={location.pathname === '/' ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
