@@ -1,19 +1,14 @@
 import React from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
 import img from '../assets/logo.png';
 
 interface ProductsPageProps {
-    cart: { title: string; price: number }[];
     addToCart: (product: { title: string; price: number }) => void;
-    removeFromCart: (index: number) => void;
 }
 
-const ProductsPage: React.FC<ProductsPageProps> = ({ cart, addToCart, removeFromCart }) => {
+const ProductsPage: React.FC<ProductsPageProps> = ({ addToCart }) => {
     return (
         <div className="bg-white text-gray-900 dark:bg-zinc-800 dark:text-white">
-            <Header cart={cart} removeFromCart={removeFromCart} />
             <header className="bg-green-600 text-white text-center py-16">
                 <div className="container mx-auto">
                     <h1 className="text-4xl font-semibold">I Nostri Prodotti</h1>
@@ -30,7 +25,6 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ cart, addToCart, removeFrom
                     <ProductCard imageUrl={img} title="Cereali Biologici" description="Lorem ipsum dolor sit amet consectetur adipisicing elit." weight="700g" price={12.99} addToCart={addToCart} />
                 </div>
             </section>
-            <Footer />
         </div>
     );
 };

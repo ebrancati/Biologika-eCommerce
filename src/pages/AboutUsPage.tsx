@@ -1,16 +1,8 @@
 import React from 'react';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 
-interface AboutUsPageProps {
-    cart: { title: string; price: number }[];
-    removeFromCart: (index: number) => void;
-}
-
-const AboutUsPage: React.FC<AboutUsPageProps> = ({ cart, removeFromCart }) => {
+const AboutUsPage: React.FC = () => {
     return (
         <div className="bg-white text-gray-900 dark:bg-zinc-800 dark:text-white">
-            <Header cart={cart} removeFromCart={removeFromCart} />
             <header className="bg-green-600 text-white text-center py-16">
                 <div className="container mx-auto">
                     <h1 className="text-4xl font-semibold">Chi Siamo</h1>
@@ -50,8 +42,6 @@ const AboutUsPage: React.FC<AboutUsPageProps> = ({ cart, removeFromCart }) => {
                     qualità. Il nostro obiettivo è produrre alimenti sani, senza additivi chimici, e rispettare l’ambiente.
                 </p>
             </section>
-
-            <Footer />
         </div>
     );
 };
