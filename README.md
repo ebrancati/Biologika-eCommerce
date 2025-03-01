@@ -1,50 +1,58 @@
-# React + TypeScript + Vite
+# eCommerce React App (TypeScript)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Progetto di eCommerce sviluppato con React, TypeScript, Vite, e Tailwind CSS.
 
-Currently, two official plugins are available:
+## Tecnologie Utilizzate
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+* **React:** Libreria JavaScript per la creazione di interfacce utente.
+* **TypeScript:** Linguaggio di programmazione che aggiunge tipi statici a JavaScript.
+* **Vite:** Tool di build per progetti web moderni, veloce e leggero.
+* **Tailwind CSS:** Framework CSS utility-first per uno sviluppo rapido e personalizzabile.
+* **React Router:** Libreria per la gestione delle rotte in applicazioni React.
 
-## Expanding the ESLint configuration
+## Funzionalità
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+* Visualizzazione di prodotti con immagini, descrizioni e prezzi.
+* Aggiunta e rimozione di prodotti dal carrello.
+* Calcolo del totale del carrello.
+* Interfaccia utente responsiva e ottimizzata per dispositivi mobili.
+* Gestione delle rotte per navigazione tra pagine.
+* Utilizzo di TypeScript per la tipizzazione statica e la prevenzione di errori.
 
-- Configure the top-level `parserOptions` property like this:
+## Installazione
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+1.  Clona il repository utilizzando uno dei seguenti comandi:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+    * Utilizzando `git clone`:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+        ```bash
+        git clone [https://github.com/ebrancati/Biologika-eCommerce.git](https://github.com/ebrancati/Biologika-eCommerce.git)
+        ```
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+    * Utilizzando GitHub CLI:
+
+        ```bash
+        gh repo clone ebrancati/Biologika-eCommerce
+        ```
+
+2.  Naviga nella cartella del progetto:
+
+    ```bash
+    cd Biologika-eCommerce
+    ```
+
+3.  Installa le dipendenze:
+
+    ```bash
+    npm install
+    ```
+
+## Esecuzione
+
+1.  Avvia il server di sviluppo:
+
+    ```bash
+    npm run dev
+    ```
+
+2.  Apri il browser e vai all'indirizzo `http://localhost:5173`.
