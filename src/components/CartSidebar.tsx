@@ -1,19 +1,18 @@
 import React from 'react';
-import { Translations } from '../types/translationTypes.ts';
+import { Translations, Language } from '../types/translationTypes';
 
 interface CartSidebarProps {
+    language: string;
     cart: { title: string; price: number }[];
     isOpen: boolean;
     onClose: () => void;
     removeFromCart: (index: number) => void;
-    language: string;
 }
 
-const CartSidebar: React.FC<CartSidebarProps> = ({ cart, isOpen, onClose, removeFromCart, language }) => {
+const CartSidebar: React.FC<CartSidebarProps> = ({ language, cart, isOpen, onClose, removeFromCart }) => {
     const total = cart.reduce((acc, item) => acc + item.price, 0);
-    const formattedTotal = total.toFixed(2).replace('.', ',');
 
-    const getTranslatedText = (key: string) => {
+    const getTranslatedText = (key: keyof Translations[Language]) => {
         const translations: Translations = {
             it: {
                 title: 'Carrello',
@@ -27,6 +26,16 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ cart, isOpen, onClose, remove
             },
         };
         return translations[language][key] || key;
+    };
+
+    const formatTotal = (total: number, language: Language) => {
+        if (language === 'it') {
+            return `€${total.toFixed(2).replace('.', ',')}`;
+        } else if (language === 'ja') {
+            return `¥${Math.round(total * 150)}`;
+        } else {
+            return `€${total.toFixed(2)}`;
+        }
     };
 
     return (
@@ -47,7 +56,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ cart, isOpen, onClose, remove
                         {cart.map((item, index) => (
                             <li key={index} className="flex justify-between items-center py-2 border-b border-gray-200 dark:border-gray-700">
                                 <span>{item.title}</span>
-                                <span>€{item.price.toFixed(2)}</span>
+                                <span>{formatTotal(item.price, language)}</span>
                                 <button className="text-red-500 hover:text-red-700" onClick={() => removeFromCart(index)}>
                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                                         <path
@@ -65,7 +74,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ cart, isOpen, onClose, remove
                     <div className="mt-4 border-t border-gray-200 dark:border-gray-700 pt-4">
                         <div className="flex justify-between items-center">
                             <span className="font-semibold">{getTranslatedText('total')}</span>
-                            <span className="font-bold">€{formattedTotal}</span>
+                            <span className="font-bold">{formatTotal(total, language)}</span>
                         </div>
                     </div>
                 )}

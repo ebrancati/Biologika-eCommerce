@@ -1,5 +1,5 @@
 import React from 'react';
-import { Translations } from '../types/translationTypes.ts';
+import { Translations } from '../types/translationTypes';
 
 interface CardProps {
     title: string;
@@ -12,8 +12,6 @@ interface CardProps {
 }
 
 const ProductCard: React.FC<CardProps> = ({ language, title, description, weight, price, imageUrl, addToCart }) => {
-    const formattedPrice = price.toFixed(2).split('.');
-
     const handleAddToCart = () => {
         addToCart({ title, price });
     };
@@ -30,6 +28,17 @@ const ProductCard: React.FC<CardProps> = ({ language, title, description, weight
         return translations[language][key] || translations.it[key];
     };
 
+
+    const formattedPrice = (price: number, language: string) => {
+        if (language === 'it') {
+            return `€${price.toFixed(2)}`;
+        } else if (language === 'ja') {
+            return `¥${Math.round(price * 150)}`;
+        } else {
+            return `€${price.toFixed(2)}`;
+        }
+    };
+
     return (
         <div className="card max-w-xs mx-auto bg-white shadow-lg rounded-lg overflow-hidden dark:bg-black">
             <img src={imageUrl} className="w-full h-56 object-cover" alt={title} />
@@ -38,10 +47,7 @@ const ProductCard: React.FC<CardProps> = ({ language, title, description, weight
                 <p className="text-gray-600 h-20 dark:text-white">{description}</p>
                 <div className="flex justify-between mt-4 text-xl font-bold">
                     <p className="text-lg">{weight}</p>
-                    <p className="text-yellow-500">
-                        <span className="text-2xl">€{formattedPrice[0]}</span>
-                        <span className="text-lg">,{formattedPrice[1]}</span>
-                    </p>
+                    <p className="text-yellow-500">{formattedPrice(price, language)}</p>
                 </div>
                 <button
                     className="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full w-full"
