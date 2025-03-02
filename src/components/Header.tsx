@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import DarkModeToggle from './DarkModeToggle';
 import CartSidebar from './CartSidebar';
+import { Translations } from '../types/translationTypes.ts';
 import logo from '/logo.png';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
+import { GlobeAltIcon } from '@heroicons/react/24/outline';
 
 interface HeaderProps {
     cart: { title: string; price: number }[];
     removeFromCart: (index: number) => void;
+    language: string;
+    changeLanguage: (lang: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ cart, removeFromCart }) => {
+const Header: React.FC<HeaderProps> = ({ cart, removeFromCart, language, changeLanguage }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const location = useLocation();
+    const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+    const languageMenuRef = useRef<HTMLDivElement>(null);
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -23,13 +29,56 @@ const Header: React.FC<HeaderProps> = ({ cart, removeFromCart }) => {
         setIsCartOpen(!isCartOpen);
     };
 
+    const toggleLanguageMenu = () => {
+        setIsLanguageMenuOpen(!isLanguageMenuOpen);
+    };
+
+    const changeLanguageFromMenu = (lang: string) => {
+        changeLanguage(lang);
+        setIsLanguageMenuOpen(false);
+        console.log(`Language changed to: ${lang}`);
+    };
+
+    const getTitle = () => {
+        return language === 'it' ? 'Biologika' : 'バイオロジカ';
+    };
+
+    const getTranslatedText = (key: string) => {
+        const translations: Translations = {
+            it: {
+                homepage: 'Homepage',
+                prodotti: 'Prodotti',
+                chiSiamo: 'Chi Siamo',
+            },
+            ja: {
+                homepage: 'ホームページ',
+                prodotti: '製品',
+                chiSiamo: '私たちについて',
+            },
+        };
+        return translations[language][key] || key;
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (languageMenuRef.current && !languageMenuRef.current.contains(event.target as Node)) {
+                setIsLanguageMenuOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [languageMenuRef]);
+
     return (
         <nav className="bg-white shadow-md sticky top-0 z-50 dark:bg-black">
             <div className="container mx-auto px-0 sm:px-6 py-3">
                 <div className="flex justify-between items-center text-green-500">
                     <Link to="/" className="flex items-center text-xl font-semibold">
                         <img src={logo} alt="Logo Biologika" className="h-8 mr-2 ml-5" />
-                        <span className="xxs:hidden sm:block">Biologika</span>
+                        <span className="xxs:hidden sm:block">{getTitle()}</span>
                     </Link>
                     <button
                         className="lg:hidden text-gray-500 hover:text-gray-700 cursor-pointer"
@@ -46,23 +95,23 @@ const Header: React.FC<HeaderProps> = ({ cart, removeFromCart }) => {
                             to="/"
                             className={location.pathname === '/' ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
                         >
-                            Homepage
+                            {getTranslatedText('homepage')}
                         </Link>
                         <Link
                             to="/prodotti"
                             className={location.pathname === '/prodotti' ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
                         >
-                            Prodotti
+                            {getTranslatedText('prodotti')}
                         </Link>
                         <Link
                             to="/chi-siamo"
                             className={location.pathname === '/chi-siamo' ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
                         >
-                            Chi Siamo
+                            {getTranslatedText('chiSiamo')}
                         </Link>
                     </div>
-                    <div className="flex items-center">
-                        <DarkModeToggle />
+                    <div className="flex items-center relative">
+                        <DarkModeToggle language={language} />
                         <button className="relative ml-4 mr-5 cursor-pointer" onClick={toggleCart}>
                             <ShoppingCartIcon className="h-6 w-6" />
                             {cart.length > 0 && (
@@ -71,6 +120,21 @@ const Header: React.FC<HeaderProps> = ({ cart, removeFromCart }) => {
                                 </span>
                             )}
                         </button>
+                        <button className="ml-4 mr-5 cursor-pointer" onClick={toggleLanguageMenu}>
+                            <GlobeAltIcon className="h-6 w-6" />
+                        </button>
+                        {isLanguageMenuOpen && (
+                            <div ref={languageMenuRef} className="absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
+                                <div className="py-1">
+                                    <button onClick={() => changeLanguageFromMenu('it')} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600">
+                                        Italiano
+                                    </button>
+                                    <button onClick={() => changeLanguageFromMenu('ja')} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600">
+                                        Giapponese
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -85,24 +149,24 @@ const Header: React.FC<HeaderProps> = ({ cart, removeFromCart }) => {
                             to="/"
                             className={location.pathname === '/' ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
                         >
-                            Homepage
+                            {getTranslatedText('homepage')}
                         </Link>
                         <Link
                             to="/prodotti"
                             className={location.pathname === '/prodotti' ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
                         >
-                            Prodotti
+                            {getTranslatedText('prodotti')}
                         </Link>
                         <Link
                             to="/chi-siamo"
                             className={location.pathname === '/chi-siamo' ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
                         >
-                            Chi Siamo
+                            {getTranslatedText('chiSiamo')}
                         </Link>
                     </div>
                 </div>
             </div>
-            <CartSidebar cart={cart} isOpen={isCartOpen} onClose={toggleCart} removeFromCart={removeFromCart} />
+            <CartSidebar language={language} cart={cart} isOpen={isCartOpen} onClose={toggleCart} removeFromCart={removeFromCart} />
         </nav>
     );
 };

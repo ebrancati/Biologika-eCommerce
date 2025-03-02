@@ -1,4 +1,5 @@
 import React from 'react';
+import { Translations } from '../types/translationTypes.ts';
 
 interface CardProps {
     title: string;
@@ -7,13 +8,26 @@ interface CardProps {
     price: number;
     imageUrl: string;
     addToCart: (product: { title: string; price: number }) => void;
+    language: string;
 }
 
-const ProductCard: React.FC<CardProps> = ({ title, description, weight, price, imageUrl, addToCart }) => {
+const ProductCard: React.FC<CardProps> = ({ language, title, description, weight, price, imageUrl, addToCart }) => {
     const formattedPrice = price.toFixed(2).split('.');
 
     const handleAddToCart = () => {
         addToCart({ title, price });
+    };
+
+    const getTranslatedText = (key: string) => {
+        const translations: Translations = {
+            it: {
+                addToCart: 'Aggiungi al carrello',
+            },
+            ja: {
+                addToCart: 'カートに追加',
+            },
+        };
+        return translations[language][key] || translations.it[key];
     };
 
     return (
@@ -33,7 +47,7 @@ const ProductCard: React.FC<CardProps> = ({ title, description, weight, price, i
                     className="mt-4 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-full w-full"
                     onClick={handleAddToCart}
                 >
-                    Aggiungi al carrello
+                    {getTranslatedText('addToCart')}
                 </button>
             </div>
         </div>

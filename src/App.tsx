@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 
 function App() {
     const [cart, setCart] = useState<{ title: string; price: number }[]>([]);
+    const [language, setLanguage] = useState('it');
 
     const addToCart = (product: { title: string; price: number }) => {
         setCart([...cart, product]);
@@ -19,24 +20,24 @@ function App() {
         setCart(newCart);
     };
 
+    const changeLanguage = (lang: string) => {
+        setLanguage(lang);
+    };
+
     return (
         <>
-            <Header cart={cart} removeFromCart={removeFromCart} />
+            <Header
+                cart={cart}
+                removeFromCart={removeFromCart}
+                language={language}
+                changeLanguage={changeLanguage}
+            />
             <Routes>
-                <Route
-                    path="/"
-                    element={<HomePage />}
-                />
-                <Route
-                    path="/prodotti"
-                    element={<ProductsPage addToCart={addToCart} />}
-                />
-                <Route
-                    path="/chi-siamo"
-                    element={<AboutUsPage />}
-                />
+                <Route path="/" element={<HomePage language={language} />} />
+                <Route path="/prodotti" element={<ProductsPage language={language} addToCart={addToCart} />} />
+                <Route path="/chi-siamo" element={<AboutUsPage language={language} />} />
             </Routes>
-            <Footer />
+            <Footer language={language} />
         </>
     );
 }

@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { SunIcon, MoonIcon } from '@heroicons/react/20/solid';
 
-const DarkModeToggle: React.FC = () => {
+interface DarkModeToggleProps {
+    language: string;
+}
+
+const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ language }) => {
     const [isDarkMode, setIsDarkMode] = useState(false);
 
     useEffect(() => {
@@ -18,6 +22,14 @@ const DarkModeToggle: React.FC = () => {
         localStorage.setItem('darkMode', String(!isDarkMode));
     };
 
+    const getModeText = () => {
+        if (language === 'ja') {
+            return isDarkMode ? 'ライトモード' : 'ダークモード';
+        } else {
+            return isDarkMode ? 'Light Mode' : 'Dark Mode';
+        }
+    };
+
     return (
         <button
             id="darkModeToggle"
@@ -30,7 +42,7 @@ const DarkModeToggle: React.FC = () => {
             ) : (
                 <MoonIcon className="h-5 w-5" />
             )}
-            <span className="ml-2 hidden sm:inline">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+            <span className="ml-2 hidden sm:inline">{getModeText()}</span>
         </button>
     );
 };
