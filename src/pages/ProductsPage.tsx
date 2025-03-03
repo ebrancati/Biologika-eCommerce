@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductCard from '../components/ProductCard';
+import Header from '../components/Header'
 import { Translations } from '../types/translationTypes.ts';
 import img from '../assets/logo.png';
 
@@ -49,12 +50,10 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ addToCart, language }) => {
 
     return (
         <div className="bg-white text-gray-900 dark:bg-zinc-800 dark:text-white">
-            <header className="bg-green-600 text-white text-center py-16">
-                <div className="container mx-auto">
-                    <h1 className="text-4xl font-semibold">{getTranslatedText('title')}</h1>
-                    <p className="text-lg mt-4">{getTranslatedText('subtitle')}</p>
-                </div>
-            </header>
+            <Header
+                title={getTranslatedText('title')}
+                subtitle={getTranslatedText('subtitle')}
+            />
             <section className="container mx-auto my-12">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     <ProductCard language={language} imageUrl={img} title={getTranslatedText('biscuits')} description={getTranslatedText('biscuitsDesc')} weight="700g" price={12.99} addToCart={addToCart} />

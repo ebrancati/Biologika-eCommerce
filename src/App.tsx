@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import ProductsPage from './pages/ProductsPage';
 import HomePage from './pages/HomePage';
 import AboutUsPage from './pages/AboutUsPage';
-import Header from './components/Header';
+import Nav from './components/Nav';
 import Footer from './components/Footer';
 
 function App() {
@@ -26,7 +26,7 @@ function App() {
 
     return (
         <>
-            <Header
+            <Nav
                 cart={cart}
                 removeFromCart={removeFromCart}
                 language={language}

@@ -1,4 +1,5 @@
 import React from 'react';
+import Header from '../components/Header'
 import { Translations } from '../types/translationTypes';
 
 interface AboutUsPageProps {
@@ -38,13 +39,10 @@ const AboutUsPage: React.FC<AboutUsPageProps> = ({ language }) => {
 
     return (
         <div className="bg-white text-gray-900 dark:bg-zinc-800 dark:text-white">
-            <header className="bg-green-600 text-white text-center py-16">
-                <div className="container mx-auto">
-                    <h1 className="text-4xl font-semibold">{getTranslatedText('title')}</h1>
-                    <p className="text-lg mt-4">{getTranslatedText('subtitle')}</p>
-                </div>
-            </header>
-
+            <Header
+                title={getTranslatedText('title')}
+                subtitle={getTranslatedText('subtitle')}
+            />
             <section className="container mx-auto my-12">
                 <h2 className="text-2xl font-semibold text-green-600 mb-4">{getTranslatedText('historyTitle')}</h2>
                 <p className="text-lg text-gray-700 dark:text-white">{getTranslatedText('historyText')}</p>

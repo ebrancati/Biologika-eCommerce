@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Header from '../components/Header'
 import { Translations } from '../types/translationTypes.ts';
 
 interface HomePageProps {
@@ -35,12 +36,10 @@ const HomePage: React.FC<HomePageProps> = ({ language }) => {
 
     return (
         <div className="bg-white text-gray-900 dark:bg-zinc-800 dark:text-white">
-            <header className="bg-green-600 text-white text-center py-16">
-                <div className="container mx-auto">
-                    <h1 className="text-4xl font-semibold">{getTranslatedText('title')}</h1>
-                    <p className="text-lg mt-4">{getTranslatedText('subtitle')}</p>
-                </div>
-            </header>
+            <Header
+                title={getTranslatedText('title')}
+                subtitle={getTranslatedText('subtitle')}
+            />
             <section className="bg-gray-100 py-20 dark:bg-zinc-900 dark:text-white">
                 <div className="container mx-auto text-center">
                     <h2 className="text-3xl font-semibold">{getTranslatedText('purity')}</h2>
