@@ -112,7 +112,7 @@ const Header: React.FC<HeaderProps> = ({ cart, removeFromCart, language, changeL
                     </div>
                     <div className="flex items-center relative">
                         <DarkModeToggle language={language} />
-                        <button className="relative ml-4 mr-5 cursor-pointer" onClick={toggleCart}>
+                        <button className="relative ml-4 mr-2 cursor-pointer" onClick={toggleCart}>
                             <ShoppingCartIcon className="h-6 w-6" />
                             {cart.length > 0 && (
                                 <span className="absolute -top-2 -right-4 bg-red-500 text-white rounded-full px-2 text-xs">
@@ -120,7 +120,7 @@ const Header: React.FC<HeaderProps> = ({ cart, removeFromCart, language, changeL
                                 </span>
                             )}
                         </button>
-                        <button className="ml-4 mr-5 cursor-pointer" onClick={toggleLanguageMenu}>
+                        <button className="m2-4 ml-2 mr-4 cursor-pointer" onClick={toggleLanguageMenu}>
                             <GlobeAltIcon className="h-6 w-6" />
                         </button>
                         {isLanguageMenuOpen && (

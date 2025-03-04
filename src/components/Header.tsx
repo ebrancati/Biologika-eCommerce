@@ -29,15 +29,15 @@ const Header: React.FC<PageHeaderProps> = ({ title, subtitle }) => {
             <header className="bg-green-600 text-white flex items-center justify-around">
                 <img
                     src={leftImg}
-                    className={`max-h-[200px] max-w-full object-contain ${isProductsPage ? 'block sm:block' : 'hidden sm:block'}`}
+                    className={`max-h-[200px] max-w-full object-contain ${isProductsPage ? 'block sm:block' : 'hidden sm:block'} max-[420px]:max-h-[30vw] self-end`}
                 />
                 <div className="text-center">
-                    <h1 className="text-4xl font-semibold">{title}</h1>
-                    <p className="text-lg mt-4">{subtitle}</p>
+                    <h1 className="text-4xl font-semibold max-[420px]:text-[8vw]">{title}</h1>
+                    <p className="text-lg mt-4 max-[420px]:text-[4vw]">{subtitle}</p>
                 </div>
                 <img
                     src={rightImg}
-                    className={`max-h-[200px] max-w-full object-contain ${isHomePage ? 'block sm:block' : 'hidden sm:block'}`}
+                    className={`max-h-[200px] max-w-full object-contain ${isHomePage ? 'block sm:block' : 'hidden sm:block'} max-[420px]:max-h-[30vw] self-end`}
                 />
             </header>
         );

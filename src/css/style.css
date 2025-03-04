@@ -2,7 +2,7 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-@media (max-width: 320px) {
+@media (max-width: 420px) {
     .xxs\:hidden {
         display: none;
     }
