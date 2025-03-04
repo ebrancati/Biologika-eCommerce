@@ -30,8 +30,8 @@ const AboutUsPage: React.FC<AboutUsPageProps> = ({ language }) => {
         },
     };
 
-    const getTranslatedText = (key: keyof Translations[string]) => {
-        return translations[language][key] || key;
+    const getTranslatedText = (key: keyof Translations[string]): string => {
+        return translations[language]?.[key] ?? key;
     };
 
     const valuesString: string = translations[language].values;
