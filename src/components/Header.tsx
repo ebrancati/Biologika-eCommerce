@@ -1,6 +1,6 @@
 import React from 'react';
-import leftImg from '../assets/left-header-img.png';
-import rightImg from '../assets/right-header-img.png';
+import leftImg from '../assets/anime/left-header-img.png';
+import rightImg from '../assets/anime/right-header-img.png';
 import { useLocation } from 'react-router-dom';
 
 interface PageHeaderProps {

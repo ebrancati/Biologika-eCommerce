@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header'
 import { Translations } from '../types/translationTypes.ts';
+import img from '../assets/anime/biologika-img.png';
 
 interface HomePageProps {
     language: string;
@@ -52,12 +53,17 @@ const HomePage: React.FC<HomePageProps> = ({ language }) => {
                     </p>
                 </div>
             </section>
-            <section className="container mx-auto my-20 text-center dark:text-white">
-                <div className="container mx-auto text-center">
-                    <h2 className="text-3xl font-semibold">{getTranslatedText('commitment')}</h2>
-                    <p className="text-lg mt-4">
-                        {getTranslatedText('environment')}
-                    </p>
+            <section className="container mx-auto my-20 dark:text-white">
+                <div className="flex flex-col md:flex-row items-center">
+                    <div className="md:w-1/2 text-center md:text-left">
+                        <h2 className="text-3xl font-semibold">{getTranslatedText('commitment')}</h2>
+                        <p className="text-lg mt-4">
+                            {getTranslatedText('environment')}
+                        </p>
+                    </div>
+                    <div className="md:w-1/2 mt-8 md:mt-0">
+                        <img src={img} className="w-full" alt="Immagine" />
+                    </div>
                 </div>
             </section>
         </div>
