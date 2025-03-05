@@ -7,14 +7,14 @@ import logo from '/logo.png';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { GlobeAltIcon } from '@heroicons/react/24/outline';
 
-interface HeaderProps {
+interface NavProps {
     cart: { title: string; price: number }[];
     removeFromCart: (index: number) => void;
     language: string;
     changeLanguage: (lang: string) => void;
 }
 
-const Header: React.FC<HeaderProps> = ({ cart, removeFromCart, language, changeLanguage }) => {
+const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguage }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const location = useLocation();
@@ -171,4 +171,4 @@ const Header: React.FC<HeaderProps> = ({ cart, removeFromCart, language, changeL
     );
 };
 
-export default Header;
+export default Nav;
