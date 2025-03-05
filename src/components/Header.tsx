@@ -10,9 +10,9 @@ interface PageHeaderProps {
 
 const Header: React.FC<PageHeaderProps> = ({ title, subtitle }) => {
     const location = useLocation();
-    const isHomePage = location.pathname === '/';
-    const isProductsPage = location.pathname === '/prodotti';
-    const isAboutPage = location.pathname === '/chi-siamo';
+    const isHomePage = location.pathname === '/homepage';
+    const isProductsPage = location.pathname === '/products';
+    const isAboutPage = location.pathname === '/about-us';
 
     if (isAboutPage) {
         return (

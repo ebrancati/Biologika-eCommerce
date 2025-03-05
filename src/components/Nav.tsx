@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import DarkModeToggle from './DarkModeToggle.tsx';
 import CartSidebar from './CartSidebar.tsx';
 import { Translations } from '../types/translationTypes.ts';
@@ -17,9 +17,10 @@ interface NavProps {
 const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguage }) => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(false);
-    const location = useLocation();
     const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
     const languageMenuRef = useRef<HTMLDivElement>(null);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -36,7 +37,11 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
     const changeLanguageFromMenu = (lang: string) => {
         changeLanguage(lang);
         setIsLanguageMenuOpen(false);
-        console.log(`Language changed to: ${lang}`);
+
+        const currentPath = location.pathname.split('/').slice(2).join('/');
+        navigate(`/${lang}/${currentPath || ''}`);
+
+        localStorage.setItem('language', lang);
     };
 
     const getTitle = () => {
@@ -47,13 +52,13 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
         const translations: Translations = {
             it: {
                 homepage: 'Homepage',
-                prodotti: 'Prodotti',
-                chiSiamo: 'Chi Siamo',
+                products: 'Prodotti',
+                aboutUs: 'Chi Siamo',
             },
             ja: {
                 homepage: 'ホームページ',
-                prodotti: '製品',
-                chiSiamo: '私たちについて',
+                products: '製品',
+                aboutUs: '私たちについて',
             },
         };
         return translations[language][key] || key;
@@ -92,22 +97,22 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
                     </button>
                     <div className="hidden lg:flex space-x-6">
                         <Link
-                            to="/"
-                            className={location.pathname === '/' ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
+                            to={`/${language}/homepage`}
+                            className={location.pathname === `/${language}/homepage` ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
                         >
                             {getTranslatedText('homepage')}
                         </Link>
                         <Link
-                            to="/prodotti"
-                            className={location.pathname === '/prodotti' ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
+                            to={`/${language}/products`}
+                            className={location.pathname === `/${language}/products` ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
                         >
-                            {getTranslatedText('prodotti')}
+                            {getTranslatedText('products')}
                         </Link>
                         <Link
-                            to="/chi-siamo"
-                            className={location.pathname === '/chi-siamo' ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
+                            to={`/${language}/about-us`}
+                            className={location.pathname === `/${language}/about-us` ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
                         >
-                            {getTranslatedText('chiSiamo')}
+                            {getTranslatedText('aboutUs')}
                         </Link>
                     </div>
                     <div className="flex items-center relative">
@@ -146,22 +151,22 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
                 <div className="container mx-auto px-0 py-3 text-green-500">
                     <div className="flex flex-col space-y-4 ml-5">
                         <Link
-                            to="/"
-                            className={location.pathname === '/' ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
+                            to={`/${language}/homepage`}
+                            className={location.pathname === `/${language}/homepage` ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
                         >
                             {getTranslatedText('homepage')}
                         </Link>
                         <Link
-                            to="/prodotti"
-                            className={location.pathname === '/prodotti' ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
+                            to={`/${language}/products`}
+                            className={location.pathname === `/${language}/products` ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
                         >
-                            {getTranslatedText('prodotti')}
+                            {getTranslatedText('products')}
                         </Link>
                         <Link
-                            to="/chi-siamo"
-                            className={location.pathname === '/chi-siamo' ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
+                            to={`/${language}/about-us`}
+                            className={location.pathname === `/${language}/about-us` ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
                         >
-                            {getTranslatedText('chiSiamo')}
+                            {getTranslatedText('about-us')}
                         </Link>
                     </div>
                 </div>
