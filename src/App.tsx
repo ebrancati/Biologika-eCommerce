@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ProductsPage from './pages/ProductsPage';
 import HomePage from './pages/HomePage';
@@ -8,7 +8,11 @@ import Footer from './components/Footer';
 
 function App() {
     const [cart, setCart] = useState<{ title: string; price: number }[]>([]);
-    const [language, setLanguage] = useState('it');
+    const [language, setLanguage] = useState(localStorage.getItem('language') || 'ja');
+
+    useEffect(() => {
+        localStorage.setItem('language', language);
+    }, [language]);
 
     const addToCart = (product: { title: string; price: number }) => {
         setCart([...cart, product]);
