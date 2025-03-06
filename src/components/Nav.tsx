@@ -166,7 +166,7 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
                             to={`/${language}/about-us`}
                             className={location.pathname === `/${language}/about-us` ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
                         >
-                            {getTranslatedText('about-us')}
+                            {getTranslatedText('aboutUs')}
                         </Link>
                     </div>
                 </div>
