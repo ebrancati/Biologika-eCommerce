@@ -41,7 +41,7 @@ const ProductCard: React.FC<CardProps> = ({ language, title, description, weight
 
     return (
         <div className="card max-w-xs mx-auto bg-white shadow-lg rounded-lg overflow-hidden dark:bg-black">
-            <img src={imageUrl} className="w-full h-56 object-cover" alt={title} />
+            <img src={imageUrl} className="w-full h-80 object-cover" alt={title} />
             <div className="p-6">
                 <h5 className="text-xl font-semibold text-green-600 h-15">{title}</h5>
                 <p className="text-gray-600 h-20 dark:text-white">{description}</p>
