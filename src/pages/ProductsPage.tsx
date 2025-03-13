@@ -61,12 +61,12 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ addToCart, language }) => {
             />
             <section className="container mx-auto my-12">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <ProductCard language={language} imageUrl={cookiesImg} title={getTranslatedText('biscuits')} description={getTranslatedText('biscuitsDesc')} weight="700g" price={12.99} addToCart={addToCart} />
-                    <ProductCard language={language} imageUrl={honeyImg} title={getTranslatedText('honey')} description={getTranslatedText('honeyDesc')} weight="700g" price={12.99} addToCart={addToCart} />
-                    <ProductCard language={language} imageUrl={jamImg} title={getTranslatedText('jams')} description={getTranslatedText('jamsDesc')} weight="700g" price={12.99} addToCart={addToCart} />
-                    <ProductCard language={language} imageUrl={peanutButterImg} title={getTranslatedText('peanutButter')} description={getTranslatedText('peanutButterDesc')} weight="700g" price={12.99} addToCart={addToCart} />
-                    <ProductCard language={language} imageUrl={oliveOilImg} title={getTranslatedText('oliveOil')} description={getTranslatedText('oliveOilDesc')} weight="700g" price={12.99} addToCart={addToCart} />
-                    <ProductCard language={language} imageUrl={cerealsImg} title={getTranslatedText('cereals')} description={getTranslatedText('cerealsDesc')} weight="700g" price={12.99} addToCart={addToCart} />
+                    <ProductCard language={language} imageUrl={cookiesImg} title={getTranslatedText('biscuits')} description={getTranslatedText('biscuitsDesc')} weight="400g" price={5.99} addToCart={addToCart} />
+                    <ProductCard language={language} imageUrl={honeyImg} title={getTranslatedText('honey')} description={getTranslatedText('honeyDesc')} weight="300g" price={8.99} addToCart={addToCart} />
+                    <ProductCard language={language} imageUrl={jamImg} title={getTranslatedText('jams')} description={getTranslatedText('jamsDesc')} weight="250g" price={4.99} addToCart={addToCart} />
+                    <ProductCard language={language} imageUrl={peanutButterImg} title={getTranslatedText('peanutButter')} description={getTranslatedText('peanutButterDesc')} weight="400g" price={6.99} addToCart={addToCart} />
+                    <ProductCard language={language} imageUrl={oliveOilImg} title={getTranslatedText('oliveOil')} description={getTranslatedText('oliveOilDesc')} weight="750ml" price={14.99} addToCart={addToCart} />
+                    <ProductCard language={language} imageUrl={cerealsImg} title={getTranslatedText('cereals')} description={getTranslatedText('cerealsDesc')} weight="500g" price={6.99} addToCart={addToCart} />
                 </div>
             </section>
         </div>
