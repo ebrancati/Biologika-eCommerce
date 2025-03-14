@@ -7,7 +7,10 @@ import Nav from './components/Nav';
 import Footer from './components/Footer';
 
 function App() {
-    const [cart, setCart] = useState<{ title: string; price: number }[]>([]);
+    const [cart, setCart] = useState<{ title: string; price: number }[]>(() => {
+        const storedCart = localStorage.getItem('cart');
+        return storedCart ? JSON.parse(storedCart) : [];
+    });
     const [language, setLanguage] = useState(localStorage.getItem('language') || 'ja');
     const location = useLocation();
     const navigate = useNavigate();
@@ -17,11 +20,16 @@ function App() {
 
         if (pathLanguage === 'it' || pathLanguage === 'ja') {
             setLanguage(pathLanguage);
-        } else if (location.pathname == '/') {
+        }
+        else if (location.pathname === '/') {
             setLanguage('ja');
             navigate(`/ja/homepage`);
         }
     }, [location, navigate]);
+
+    useEffect(() => {
+        localStorage.setItem('cart', JSON.stringify(cart));
+    }, [cart]);
 
     const addToCart = (product: { title: string; price: number }) => {
         setCart([...cart, product]);
