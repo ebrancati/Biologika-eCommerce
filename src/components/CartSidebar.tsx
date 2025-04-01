@@ -2,7 +2,7 @@ import React from 'react';
 import { Translations, Language } from '../types/translationTypes';
 
 interface CartSidebarProps {
-    language: string;
+    language: Language;
     cart: { title: string; price: number }[];
     isOpen: boolean;
     onClose: () => void;
@@ -12,7 +12,7 @@ interface CartSidebarProps {
 const CartSidebar: React.FC<CartSidebarProps> = ({ language, cart, isOpen, onClose, removeFromCart }) => {
     const total = cart.reduce((acc, item) => acc + item.price, 0);
 
-    const getTranslatedText = (key: keyof Translations[Language]) => {
+    const getTranslatedText = (key: string) => {
         const translations: Translations = {
             it: {
                 title: 'Carrello',
@@ -24,15 +24,22 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ language, cart, isOpen, onClo
                 empty: 'カートは空です。',
                 total: '合計：',
             },
+            en: {
+                title: 'Cart',
+                empty: 'Your cart is empty.',
+                total: 'Total:',
+            }
         };
         return translations[language][key] || key;
     };
 
-    const formatTotal = (total: number, language: Language) => {
+    const formatTotal = (total: number, language: string) => {
         if (language === 'it') {
             return `€${total.toFixed(2).replace('.', ',')}`;
         } else if (language === 'ja') {
             return `¥${Math.round(total * 150)}`;
+        } else if (language === 'en') {
+            return `${total.toFixed(2)}`;
         } else {
             return `€${total.toFixed(2)}`;
         }

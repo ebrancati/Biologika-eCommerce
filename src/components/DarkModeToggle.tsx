@@ -25,8 +25,10 @@ const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ language }) => {
     const getModeText = () => {
         if (language === 'ja') {
             return isDarkMode ? 'ライトモード' : 'ダークモード';
-        } else {
+        } else if (language === 'en') {
             return isDarkMode ? 'Light Mode' : 'Dark Mode';
+        } else {
+            return isDarkMode ? 'Modalità Chiara' : 'Modalità Scura';
         }
     };
 

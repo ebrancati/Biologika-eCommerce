@@ -2,16 +2,20 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import DarkModeToggle from './DarkModeToggle.tsx';
 import CartSidebar from './CartSidebar.tsx';
-import { Translations } from '../types/translationTypes.ts';
+import { Translations, Language } from '../types/translationTypes.ts';
 import logo from '/logo.png';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { GlobeAltIcon } from '@heroicons/react/24/outline';
 
+// This imports the flag-icon-css library from cdnjs
+// The link will be added in the HTML head section or in your index.html file
+// <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+
 interface NavProps {
     cart: { title: string; price: number }[];
     removeFromCart: (index: number) => void;
-    language: string;
-    changeLanguage: (lang: string) => void;
+    language: Language;
+    changeLanguage: (lang: Language) => void;
 }
 
 const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguage }) => {
@@ -21,6 +25,11 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
     const languageMenuRef = useRef<HTMLDivElement>(null);
     const location = useLocation();
     const navigate = useNavigate();
+
+    // Define language constants to avoid type assertions
+    const LANG_IT: Language = 'it';
+    const LANG_JA: Language = 'ja';
+    const LANG_EN: Language = 'en';
 
     const toggleMobileMenu = () => {
         setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -34,7 +43,7 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
         setIsLanguageMenuOpen(!isLanguageMenuOpen);
     };
 
-    const changeLanguageFromMenu = (lang: string) => {
+    const changeLanguageFromMenu = (lang: Language) => {
         changeLanguage(lang);
         setIsLanguageMenuOpen(false);
 
@@ -45,7 +54,14 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
     };
 
     const getTitle = () => {
-        return language === 'it' ? 'Biologika' : 'バイオロジカ';
+        // Add English title
+        if (language === 'en') {
+            return 'Biologika';
+        } else if (language === 'it') {
+            return 'Biologika';
+        } else {
+            return 'バイオロジカ';
+        }
     };
 
     const getTranslatedText = (key: string) => {
@@ -54,12 +70,32 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
                 homepage: 'Homepage',
                 products: 'Prodotti',
                 aboutUs: 'Chi Siamo',
+                languages: 'Lingue',
+                selectLanguage: 'Seleziona lingua',
+                italian: 'Italiano',
+                japanese: 'Giapponese',
+                english: 'Inglese'
             },
             ja: {
                 homepage: 'ホームページ',
                 products: '製品',
                 aboutUs: '私たちについて',
+                languages: '言語',
+                selectLanguage: '言語を選択',
+                italian: 'イタリア語',
+                japanese: '日本語',
+                english: '英語'
             },
+            en: {
+                homepage: 'Home',
+                products: 'Products',
+                aboutUs: 'About Us',
+                languages: 'Languages',
+                selectLanguage: 'Select language',
+                italian: 'Italian',
+                japanese: 'Japanese',
+                english: 'English'
+            }
         };
         return translations[language][key] || key;
     };
@@ -125,17 +161,42 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
                                 </span>
                             )}
                         </button>
-                        <button className="m2-4 ml-2 mr-4 cursor-pointer" onClick={toggleLanguageMenu}>
-                            <GlobeAltIcon className="h-6 w-6" />
+                        <button
+                            className="ml-2 mr-4 cursor-pointer flex items-center"
+                            onClick={toggleLanguageMenu}
+                            aria-label={getTranslatedText('selectLanguage')}
+                            title={getTranslatedText('selectLanguage')}
+                        >
+                            <GlobeAltIcon className="h-6 w-6 mr-1" />
+                            <span className="hidden sm:inline">{getTranslatedText('languages')}</span>
                         </button>
                         {isLanguageMenuOpen && (
-                            <div ref={languageMenuRef} className="absolute right-0 mt-2 w-32 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5">
+                            <div
+                                ref={languageMenuRef}
+                                className="absolute right-0 mt-2 w-40 rounded-md shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5"
+                                style={{ top: '100%' }}
+                            >
                                 <div className="py-1">
-                                    <button onClick={() => changeLanguageFromMenu('it')} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600">
-                                        Italiano
+                                    <button
+                                        onClick={() => changeLanguageFromMenu(LANG_IT)}
+                                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 flex items-center"
+                                    >
+                                        <span className="flag-icon flag-icon-it mr-2"></span>
+                                        {getTranslatedText('italian')}
                                     </button>
-                                    <button onClick={() => changeLanguageFromMenu('ja')} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600">
-                                        Giapponese
+                                    <button
+                                        onClick={() => changeLanguageFromMenu(LANG_EN)}
+                                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 flex items-center"
+                                    >
+                                        <span className="flag-icon flag-icon-gb mr-2"></span>
+                                        {getTranslatedText('english')}
+                                    </button>
+                                    <button
+                                        onClick={() => changeLanguageFromMenu(LANG_JA)}
+                                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 flex items-center"
+                                    >
+                                        <span className="flag-icon flag-icon-jp mr-2"></span>
+                                        {getTranslatedText('japanese')}
                                     </button>
                                 </div>
                             </div>

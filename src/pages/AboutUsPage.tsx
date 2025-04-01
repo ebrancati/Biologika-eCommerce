@@ -12,11 +12,11 @@ const AboutUsPage: React.FC<AboutUsPageProps> = ({ language }) => {
             title: 'Chi Siamo',
             subtitle: 'Scopri la nostra storia e la passione che ci guida.',
             historyTitle: 'La Nostra Storia',
-            historyText: 'Otto giovani laureati, stanchi del ritmo frenetico della città e desiderosi di dare un nuovo senso alla loro vita, hanno deciso di trasferirsi in campagna per dedicarsi all\'agricoltura biologica. Uniti dalla passione per la natura e l’alimentazione sana, hanno fondato Biologika, un’azienda specializzata nella produzione di alimenti biologici non deperibili, come biscotti artigianali, miele di alta qualità e marmellate genuine. Con un approccio sostenibile e rispettoso dell’ambiente, coltivano le materie prime con metodi naturali, garantendo prodotti autentici e privi di sostanze chimiche. Oggi, Biologika è più di un’impresa: è un simbolo di riscatto e di ritorno alle origini, dimostrando che un’agricoltura etica e consapevole è possibile. La sede principale è situata nella regione Calabrese, ma possiamo spedire i nostri prodotti in tutta Italia.',
+            historyText: "Otto giovani laureati, stanchi del ritmo frenetico della città e desiderosi di dare un nuovo senso alla loro vita, hanno deciso di trasferirsi in campagna per dedicarsi all'agricoltura biologica. Uniti dalla passione per la natura e l'alimentazione sana, hanno fondato Biologika, un'azienda specializzata nella produzione di alimenti biologici non deperibili, come biscotti artigianali, miele di alta qualità e marmellate genuine. Con un approccio sostenibile e rispettoso dell'ambiente, coltivano le materie prime con metodi naturali, garantendo prodotti autentici e privi di sostanze chimiche. Oggi, Biologika è più di un'impresa: è un simbolo di riscatto e di ritorno alle origini, dimostrando che un'agricoltura etica e consapevole è possibile. La sede principale è situata nella regione Calabrese, ma possiamo spedire i nostri prodotti in tutta Italia.",
             valuesTitle: 'I Nostri Valori',
             values: 'Produzione sostenibile e biologica,Rispetto per la natura e gli animali,Collaborazione con agricoltori locali,Offerta di prodotti genuini e sani',
             teamTitle: 'Il Nostro Team',
-            teamText: 'Siamo un gruppo di appassionati che lavorano ogni giorno per portare sulle vostre tavole prodotti di alta qualità. Il nostro obiettivo è produrre alimenti sani, senza additivi chimici, e rispettare l’ambiente.',
+            teamText: "Siamo un gruppo di appassionati che lavorano ogni giorno per portare sulle vostre tavole prodotti di alta qualità. Il nostro obiettivo è produrre alimenti sani, senza additivi chimici, e rispettare l'ambiente.",
         },
         ja: {
             title: '私たちについて',
@@ -28,6 +28,16 @@ const AboutUsPage: React.FC<AboutUsPageProps> = ({ language }) => {
             teamTitle: '私たちのチーム',
             teamText: '私たちは、高品質の製品をあなたの食卓にお届けするために日々努力している情熱的なグループです。私たちの目標は、化学添加物を含まない健康的な食品を生産し、環境を尊重することです。',
         },
+        en: {
+            title: 'About Us',
+            subtitle: 'Discover our story and the passion that drives us.',
+            historyTitle: 'Our History',
+            historyText: 'Eight young graduates, tired of the hectic pace of the city and eager to give a new meaning to their lives, decided to move to the countryside to dedicate themselves to organic farming. United by a passion for nature and healthy eating, they founded Biologika, a company specializing in the production of non-perishable organic foods, such as artisanal cookies, high-quality honey, and genuine jams. With a sustainable and environmentally friendly approach, they cultivate raw materials using natural methods, guaranteeing authentic products free from chemicals. Today, Biologika is more than a business: it is a symbol of redemption and a return to origins, demonstrating that ethical and conscious agriculture is possible. The headquarters is located in the Calabria region, but we can ship our products throughout Italy.',
+            valuesTitle: 'Our Values',
+            values: 'Sustainable and organic production,Respect for nature and animals,Collaboration with local farmers,Offering genuine and healthy products',
+            teamTitle: 'Our Team',
+            teamText: 'We are a group of enthusiasts who work every day to bring high-quality products to your tables. Our goal is to produce healthy food without chemical additives and respect the environment.',
+        }
     };
 
     const getTranslatedText = (key: keyof Translations[string]): string => {

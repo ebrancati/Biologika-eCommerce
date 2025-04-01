@@ -24,6 +24,9 @@ const ProductCard: React.FC<CardProps> = ({ language, title, description, weight
             ja: {
                 addToCart: 'カートに追加',
             },
+            en: {
+                addToCart: 'Add to cart',
+            }
         };
         return translations[language][key] || translations.it[key];
     };
@@ -34,6 +37,8 @@ const ProductCard: React.FC<CardProps> = ({ language, title, description, weight
             return `€${price.toFixed(2)}`;
         } else if (language === 'ja') {
             return `¥${Math.round(price * 150)}`;
+        } else if (language === 'en') {
+            return `$${price.toFixed(2)}`;
         } else {
             return `€${price.toFixed(2)}`;
         }

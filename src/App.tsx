@@ -5,21 +5,27 @@ import HomePage from './pages/HomePage';
 import AboutUsPage from './pages/AboutUsPage';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
+import { Language } from './types/translationTypes';
 
 function App() {
     const [cart, setCart] = useState<{ title: string; price: number }[]>(() => {
         const storedCart = localStorage.getItem('cart');
         return storedCart ? JSON.parse(storedCart) : [];
     });
-    const [language, setLanguage] = useState(localStorage.getItem('language') || 'ja');
+
+    // Use type assertion to handle the stored language
+    const [language, setLanguage] = useState<Language>(
+        (localStorage.getItem('language') as Language) || 'ja'
+    );
+
     const location = useLocation();
     const navigate = useNavigate();
 
     useEffect(() => {
         const pathLanguage = location.pathname.split('/')[1];
 
-        if (pathLanguage === 'it' || pathLanguage === 'ja') {
-            setLanguage(pathLanguage);
+        if (pathLanguage === 'it' || pathLanguage === 'ja' || pathLanguage === 'en') {
+            setLanguage(pathLanguage as Language);
         }
         else if (location.pathname === '/') {
             setLanguage('ja');
@@ -41,7 +47,8 @@ function App() {
         setCart(newCart);
     };
 
-    const changeLanguage = (lang: string) => {
+    // Update the type to match the Nav component's expected prop type
+    const changeLanguage = (lang: Language) => {
         setLanguage(lang);
     };
 

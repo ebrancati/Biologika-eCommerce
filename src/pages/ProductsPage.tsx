@@ -49,6 +49,22 @@ const ProductsPage: React.FC<ProductsPageProps> = ({ addToCart, language }) => {
                 cereals: 'オーガニックシリアル',
                 cerealsDesc: '健康的で栄養価の高い目覚めのために、農薬や化学肥料を使用せずに天然農法で栽培されています。',
             },
+            en: {
+                title: 'Our Products',
+                subtitle: 'Discover our selection of high-quality organic products.',
+                biscuits: 'Organic Biscuits',
+                biscuitsDesc: 'Made with natural ingredients, without preservatives.',
+                honey: 'Natural Honey',
+                honeyDesc: 'Harvested from our bees in an unpolluted environment.',
+                jams: 'Artisanal Jams',
+                jamsDesc: 'Prepared with fresh fruit without chemical additives.',
+                peanutButter: 'Organic Peanut Butter',
+                peanutButterDesc: 'Made with selected peanuts, without added sugars or artificial oils.',
+                oliveOil: 'Organic Extra Virgin Olive Oil',
+                oliveOilDesc: 'Obtained from olives grown without the use of pesticides.',
+                cereals: 'Organic Cereals',
+                cerealsDesc: 'Grown using natural methods, without the use of pesticides or chemical fertilizers, for a healthy and nutritious breakfast.',
+            }
         };
         return translations[language][key] || key;
     };

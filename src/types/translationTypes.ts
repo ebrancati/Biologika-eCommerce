@@ -4,5 +4,5 @@ export interface Translations {
     };
 }
 
-export type Language = keyof Translations;
+export type Language = 'it' | 'ja' | 'en';
 export type TranslationKeys = keyof Translations['it'];

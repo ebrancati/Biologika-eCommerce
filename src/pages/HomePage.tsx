@@ -31,6 +31,16 @@ const HomePage: React.FC<HomePageProps> = ({ language }) => {
                 commitment: '持続可能性への取り組み',
                 environment: '私たちは環境保護に深く取り組んでいます。私たちのオーガニック製品は、有害な化学物質を含まないだけでなく、生物多様性と地球への敬意を促進する農業慣行から生まれています。私たちと購入することで、あなたは地球とあなたの健康にポジティブな変化をもたらすことを選択します。より緑豊かな未来への私たちの使命に参加してください！',
             },
+            en: {
+                title: 'Welcome to Biologika',
+                subtitle: 'Discover our high-quality organic products.',
+                purity: 'Discover the Purity of Nature',
+                selection: 'In our online store you\'ll find a selection of ',
+                products: 'organic products',
+                quality: ' of high quality, designed for your well-being and that of the environment. Each product is carefully chosen from farmers and producers who respect the strictest organic practices, ensuring freshness, authenticity, and flavor in every item. From fresh cereals to organic peanut butter, every purchase is a step towards a healthier and more sustainable lifestyle.',
+                commitment: 'Commitment to Sustainability',
+                environment: 'We are deeply committed to protecting the environment. Our organic products are not only free from harmful chemicals but come from agricultural practices that promote biodiversity and respect for the land. By purchasing from us, you choose to make a positive difference for the planet and for your health. Join our mission for a greener future!',
+            }
         };
         return translations[language][key] || key;
     };
