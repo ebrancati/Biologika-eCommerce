@@ -25,8 +25,8 @@ function App() {
             setLanguage(pathLanguage as Language);
         }
         else if (location.pathname === '/') {
-            setLanguage('ja');
-            navigate(`/ja`);
+            setLanguage('en');
+            navigate(`/en`);
         }
     }, [location, navigate]);
 
