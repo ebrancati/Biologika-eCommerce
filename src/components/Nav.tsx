@@ -1,15 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import DarkModeToggle from './DarkModeToggle.tsx';
 import CartSidebar from './CartSidebar.tsx';
 import { Translations, Language } from '../types/translationTypes.ts';
 import logo from '/logo.png';
 import { ShoppingCartIcon } from '@heroicons/react/24/outline';
 import { GlobeAltIcon } from '@heroicons/react/24/outline';
-
-// This imports the flag-icon-css library from cdnjs
-// The link will be added in the HTML head section or in your index.html file
-// <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
 
 interface NavProps {
     cart: { title: string; price: number }[];
@@ -22,8 +18,8 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [isCartOpen, setIsCartOpen] = useState(false);
     const [isLanguageMenuOpen, setIsLanguageMenuOpen] = useState(false);
+    const [activeSection, setActiveSection] = useState('home');
     const languageMenuRef = useRef<HTMLDivElement>(null);
-    const location = useLocation();
     const navigate = useNavigate();
 
     // Define language constants to avoid type assertions
@@ -46,15 +42,11 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
     const changeLanguageFromMenu = (lang: Language) => {
         changeLanguage(lang);
         setIsLanguageMenuOpen(false);
-
-        const currentPath = location.pathname.split('/').slice(2).join('/');
-        navigate(`/${lang}/${currentPath || ''}`);
-
+        navigate(`/${lang}`);
         localStorage.setItem('language', lang);
     };
 
     const getTitle = () => {
-        // Add English title
         if (language === 'en') {
             return 'Biologika';
         } else if (language === 'it') {
@@ -101,6 +93,29 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
     };
 
     useEffect(() => {
+        const handleScroll = () => {
+            const sections = ['home', 'products', 'about'];
+            const scrollPosition = window.scrollY + 100;
+            
+            for (const section of sections) {
+                const element = document.getElementById(section);
+                if (element) {
+                    const top = element.offsetTop;
+                    const height = element.offsetHeight;
+                    
+                    if (scrollPosition >= top && scrollPosition < top + height) {
+                        setActiveSection(section);
+                        break;
+                    }
+                }
+            }
+        };
+        
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (languageMenuRef.current && !languageMenuRef.current.contains(event.target as Node)) {
                 setIsLanguageMenuOpen(false);
@@ -113,14 +128,18 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
         };
     }, [languageMenuRef]);
 
+    const handleNavLinkClick = () => {
+        setIsMobileMenuOpen(false);
+    };
+
     return (
         <nav className="bg-white shadow-md sticky top-0 z-50 dark:bg-black">
             <div className="container mx-auto px-0 sm:px-6 py-3">
                 <div className="flex justify-between items-center text-green-500">
-                    <Link to="/" className="flex items-center text-xl font-semibold">
+                    <a href="#home" className="flex items-center text-xl font-semibold">
                         <img src={logo} alt="Logo Biologika" className="h-8 mr-2 ml-5" />
                         <span className="xxs:hidden sm:block">{getTitle()}</span>
-                    </Link>
+                    </a>
                     <button
                         className="lg:hidden text-gray-500 hover:text-gray-700 cursor-pointer"
                         type="button"
@@ -132,24 +151,24 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
                         <span className="block w-6 h-1 bg-gray-600 dark:bg-white"></span>
                     </button>
                     <div className="hidden lg:flex space-x-6">
-                        <Link
-                            to={`/${language}/homepage`}
-                            className={location.pathname === `/${language}/homepage` ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
+                        <a
+                            href="#home"
+                            className={`transition-colors duration-300 ${activeSection === 'home' ? 'text-green-500 font-medium' : 'text-gray-700 dark:text-white'} hover:text-green-500`}
                         >
                             {getTranslatedText('homepage')}
-                        </Link>
-                        <Link
-                            to={`/${language}/products`}
-                            className={location.pathname === `/${language}/products` ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
+                        </a>
+                        <a
+                            href="#products"
+                            className={`transition-colors duration-300 ${activeSection === 'products' ? 'text-green-500 font-medium' : 'text-gray-700 dark:text-white'} hover:text-green-500`}
                         >
                             {getTranslatedText('products')}
-                        </Link>
-                        <Link
-                            to={`/${language}/about-us`}
-                            className={location.pathname === `/${language}/about-us` ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
+                        </a>
+                        <a
+                            href="#about"
+                            className={`transition-colors duration-300 ${activeSection === 'about' ? 'text-green-500 font-medium' : 'text-gray-700 dark:text-white'} hover:text-green-500`}
                         >
                             {getTranslatedText('aboutUs')}
-                        </Link>
+                        </a>
                     </div>
                     <div className="flex items-center relative">
                         <DarkModeToggle language={language} />
@@ -211,24 +230,27 @@ const Nav: React.FC<NavProps> = ({ cart, removeFromCart, language, changeLanguag
             >
                 <div className="container mx-auto px-0 py-3 text-green-500">
                     <div className="flex flex-col space-y-4 ml-5">
-                        <Link
-                            to={`/${language}/homepage`}
-                            className={location.pathname === `/${language}/homepage` ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
+                        <a
+                            href="#home"
+                            className={`${activeSection === 'home' ? 'text-green-500 font-medium' : 'text-gray-700 dark:text-white'} hover:text-green-500`}
+                            onClick={handleNavLinkClick}
                         >
                             {getTranslatedText('homepage')}
-                        </Link>
-                        <Link
-                            to={`/${language}/products`}
-                            className={location.pathname === `/${language}/products` ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
+                        </a>
+                        <a
+                            href="#products"
+                            className={`${activeSection === 'products' ? 'text-green-500 font-medium' : 'text-gray-700 dark:text-white'} hover:text-green-500`}
+                            onClick={handleNavLinkClick}
                         >
                             {getTranslatedText('products')}
-                        </Link>
-                        <Link
-                            to={`/${language}/about-us`}
-                            className={location.pathname === `/${language}/about-us` ? 'hover:underline' : 'text-gray-700 hover:underline dark:text-white'}
+                        </a>
+                        <a
+                            href="#about"
+                            className={`${activeSection === 'about' ? 'text-green-500 font-medium' : 'text-gray-700 dark:text-white'} hover:text-green-500`}
+                            onClick={handleNavLinkClick}
                         >
                             {getTranslatedText('aboutUs')}
-                        </Link>
+                        </a>
                     </div>
                 </div>
             </div>

@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import ProductsPage from './pages/ProductsPage';
 import HomePage from './pages/HomePage';
-import AboutUsPage from './pages/AboutUsPage';
 import Nav from './components/Nav';
 import Footer from './components/Footer';
 import { Language } from './types/translationTypes';
@@ -13,7 +11,6 @@ function App() {
         return storedCart ? JSON.parse(storedCart) : [];
     });
 
-    // Use type assertion to handle the stored language
     const [language, setLanguage] = useState<Language>(
         (localStorage.getItem('language') as Language) || 'ja'
     );
@@ -29,7 +26,7 @@ function App() {
         }
         else if (location.pathname === '/') {
             setLanguage('ja');
-            navigate(`/ja/homepage`);
+            navigate(`/ja`);
         }
     }, [location, navigate]);
 
@@ -52,6 +49,54 @@ function App() {
         setLanguage(lang);
     };
 
+    useEffect(() => {
+        document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e: MouseEvent) => {
+                e.preventDefault();
+                
+                const targetId = anchor.getAttribute('href') || '';
+                const target = document.querySelector(targetId);
+                if (target) {
+                    const navHeight = document.querySelector('nav')?.offsetHeight || 0;
+                    const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                    
+                    window.history.pushState(null, '', targetId);
+                }
+            });
+        });
+        
+        const handleScrollAnimation = () => {
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                if (!section.classList.contains('section-animate'))
+                    section.classList.add('section-animate');
+                
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (sectionTop < windowHeight * 0.75) {
+                    section.classList.add('visible');
+                }
+            });
+        };
+        
+        handleScrollAnimation();
+        window.addEventListener('scroll', handleScrollAnimation);
+        document.documentElement.style.scrollBehavior = 'smooth';
+
+        return () => {
+            document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach(anchor => {
+                anchor.removeEventListener('click', () => {});
+            });
+            window.removeEventListener('scroll', handleScrollAnimation);
+        };
+    }, []);
+
     return (
         <>
             <Nav
@@ -61,9 +106,7 @@ function App() {
                 changeLanguage={changeLanguage}
             />
             <Routes>
-                <Route path="/:language/homepage" element={<HomePage language={language} />} />
-                <Route path="/:language/products" element={<ProductsPage language={language} addToCart={addToCart} />} />
-                <Route path="/:language/about-us" element={<AboutUsPage language={language} />} />
+                <Route path="/:language" element={<HomePage language={language} addToCart={addToCart} />} />
             </Routes>
             <Footer language={language} />
         </>
