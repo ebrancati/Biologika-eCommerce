@@ -39,7 +39,7 @@ const CartSidebar: React.FC<CartSidebarProps> = ({ language, cart, isOpen, onClo
         } else if (language === 'ja') {
             return `¥${Math.round(total * 150)}`;
         } else if (language === 'en') {
-            return `${total.toFixed(2)}`;
+            return `$${total.toFixed(2)}`;
         } else {
             return `€${total.toFixed(2)}`;
         }
